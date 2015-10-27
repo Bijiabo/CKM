@@ -11,6 +11,7 @@ import UIKit
 class Indicator_TableViewCell: UITableViewCell {
 
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var indicatorLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

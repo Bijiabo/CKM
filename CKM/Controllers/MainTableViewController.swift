@@ -10,9 +10,24 @@ import UIKit
 
 class MainTableViewController: UITableViewController {
     
-    private var _data: JSON = JSON([])
+    private var _data: JSON = JSON([]) {
+        didSet {
+            if _data["list"].array != nil && _data["table"].array == nil {
+                listDataType = ListType.Single
+            } else {
+                listDataType = ListType.Multiple
+            }
+        }
+    }
     var activeTextField: UITextField?
     var mode = "login"
+
+    var listDataType = ListType.Single
+    
+    enum  ListType {
+        case Single
+        case Multiple
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,16 +54,20 @@ class MainTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return listDataType == .Single ? 1 : _data["table"].count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return _data["list"].count
+        return listDataType == .Single ? _data["list"].count : _data["table"][section]["list"].count
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        guard let cellType = _data["list"][indexPath.row]["type"].string else {return 44.0}
+        
+        let defaultHeight: CGFloat = 44.0
+        
+        guard let cellData = listDataType == .Single ? _data["list"][indexPath.row].dictionary : _data["table"][indexPath.section]["list"][indexPath.row].dictionary else {return defaultHeight}
+        guard let cellType = listDataType == .Single ? cellData["type"]?.string : cellData["type"]?.string else {return defaultHeight}
         
         switch cellType {
         case "text_field_with_label", "password_field_with_label", "text_field", "password_field", "text_field_with_button":
@@ -67,7 +86,7 @@ class MainTableViewController: UITableViewController {
             return 140.0
             
         case "blank":
-            if let height = _data["list"][indexPath.row]["height"].float {
+            if let height = cellData["height"]?.float {
                 return CGFloat(height)
             }
             return 0.0
@@ -75,13 +94,13 @@ class MainTableViewController: UITableViewController {
         default:
             break
         }
-        return 44.0
+        return defaultHeight
     }
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        guard let cellData = _data["list"][indexPath.row].dictionary else {return UITableViewCell()}
+        guard let cellData = listDataType == .Single ? _data["list"][indexPath.row].dictionary : _data["table"][indexPath.section]["list"][indexPath.row].dictionary else {return UITableViewCell()}
         guard let cellType = cellData["type"]?.string else {return UITableViewCell()}
 
         switch cellType {
@@ -172,6 +191,7 @@ class MainTableViewController: UITableViewController {
         case "indicator":
             let cell = tableView.dequeueReusableCellWithIdentifier("indicatorCell", forIndexPath: indexPath) as! Indicator_TableViewCell
             cell.label.text = cellData["label"]?.stringValue
+            cell.indicatorLabel.text = cellData["indicatorLabel"]?.stringValue
             
             return cell
             
@@ -184,8 +204,21 @@ class MainTableViewController: UITableViewController {
         default:
             return UITableViewCell()
         }
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if listDataType == .Multiple{
+            if let title = _data["table"][section]["sectionTitle"].string {
+                return title
+            }
+        }
         
-        
+        return nil
+    }
+    
+    
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = ViewConstants.Style.backgroundColorForTableview
     }
 
 
@@ -245,9 +278,8 @@ class MainTableViewController: UITableViewController {
     // MARK: - User Interface Functions
     private func _setupViews () {
         
-        view.backgroundColor = UIColor(red:0.93, green:0.94, blue:0.95, alpha:1)
+        view.backgroundColor = ViewConstants.Style.backgroundColorForTableview
         //tableView.scrollEnabled = false
-        tableView.contentInset.top = 20.0
         
         //update navigationBar style
         let navigationBar = navigationController?.navigationBar

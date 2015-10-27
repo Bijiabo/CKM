@@ -2,26 +2,48 @@
   "actionList": {
     "title": "Actions",
     "rightButtonItem": "?",
-    "list": [
+    "table": [
       {
-        "type": "indicator",
-        "label": "Create"
+        "sectionTitle": "RecordTyle",
+        "list": [
+          {
+            "type": "indicator",
+            "label": "Create"
+          },
+          {
+            "type": "indicator",
+            "label": "Delete"
+          },
+          {
+            "type": "indicator",
+            "label": "Find"
+          },
+          {
+            "type": "indicator",
+            "label": "Edit"
+          }
+        ]
       },
       {
-        "type": "indicator",
-        "label": "Delete"
-      },
-      {
-        "type": "indicator",
-        "label": "Find"
-      },
-      {
-        "type": "indicator",
-        "label": "Edit"
-      },
-      {
-        "type": "block_button",
-        "text": "登陆"
+        "sectionTitle": "Record",
+        "list": [
+          {
+            "type": "indicator",
+            "label": "Create"
+          },
+          {
+            "type": "indicator",
+            "label": "Delete"
+          },
+          {
+            "type": "indicator",
+            "label": "Find"
+          },
+          {
+            "type": "indicator",
+            "label": "Edit"
+          }
+        ]
       }
     ]
   },

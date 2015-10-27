@@ -22,6 +22,6 @@ struct ViewConstants {
     
     struct Style {
         static let mainColor = UIColor(red:0.44, green:0.34, blue:0.75, alpha:1)
-        
+        static let backgroundColorForTableview = UIColor(red:0.93, green:0.94, blue:0.95, alpha:1)
     }
 }
