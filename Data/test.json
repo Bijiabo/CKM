@@ -1,0 +1,120 @@
+{
+  "actionList": {
+    "title": "Actions",
+    "rightButtonItem": "?",
+    "list": [
+      {
+        "type": "indicator",
+        "label": "Create"
+      },
+      {
+        "type": "indicator",
+        "label": "Delete"
+      },
+      {
+        "type": "indicator",
+        "label": "Find"
+      },
+      {
+        "type": "indicator",
+        "label": "Edit"
+      },
+      {
+        "type": "block_button",
+        "text": "登陆"
+      }
+    ]
+  },
+  "login": {
+    "title": "登陆",
+    "rightButtonItem": "注册",
+    "list": [
+      {
+        "type": "text_field_with_label",
+        "label": "帐号",
+        "placeHolder": "请输入手机号"
+      },
+      {
+        "type": "password_field_with_label",
+        "label": "密码",
+        "placeHolder": "请输入密码"
+      },
+      {
+        "type": "annotation",
+        "text": "忘记密码",
+        "align": "right"
+      },
+      {
+        "type": "block_button",
+        "text": "登陆"
+      }
+    ]
+  },
+  "register": {
+    "title": "注册",
+    "rightButtonItem": "",
+    "list": [
+      {
+        "type": "text_field",
+        "placeHolder": "请输入手机号"
+      },
+      {
+        "type": "text_field_with_button",
+        "placeHolder": "请输入验证码",
+        "buttonText": "获取验证码 "
+      },
+      {
+        "type": "password_field",
+        "placeHolder": "请输入密码"
+      },
+      {
+        "type": "annotation",
+        "text": "注册即表示同意xxxxx协议",
+        "align": "left"
+      },
+      {
+        "type": "block_button",
+        "text": "注册"
+      }
+    ]
+  },
+  "userInfo": {
+    "title": "基本信息",
+    "rightButtonItem": "",
+    "list": [
+      {
+        "type": "avatar",
+        "image": "avatar"
+      },
+      {
+        "type": "text_field_with_label_full_width",
+        "label": "昵称",
+        "placeHolder": "请输入您的昵称"
+      },
+      {
+        "type": "indicator",
+        "label": "年龄"
+      },
+      {
+        "type": "indicator",
+        "label": "性别"
+      },
+      {
+        "type": "indicator",
+        "label": "地区"
+      },
+      {
+        "type": "indicator",
+        "label": "年龄"
+      },
+      {
+        "type": "blank",
+        "height": 60
+      },
+      {
+        "type": "block_button",
+        "text": "确定"
+      }
+    ]
+  }
+}
